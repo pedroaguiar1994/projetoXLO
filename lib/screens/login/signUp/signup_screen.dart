@@ -76,7 +76,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   onSaved: _signUpBloc.setEmail,
                    enabled: snapshot.data.state != SignUpState.LOADING,
                 ),
-                const SizedBox(height: 25,),
+                const SizedBox(height: 26,),
                 const FieldTitle(
                   title: 'Senha',
                   subtitle: 'Use letras, numero e caracteres especiais.',
