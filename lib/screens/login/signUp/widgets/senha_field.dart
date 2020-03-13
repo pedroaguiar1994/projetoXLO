@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 
 class SenhaField extends StatelessWidget {
   
-  SenhaField({this.onSaved});
+  SenhaField({this.onSaved, this.enabled});
 
   final FormFieldSetter<String> onSaved;
+  final bool enabled;
   @override
   Widget build(BuildContext context) {
 
@@ -40,6 +41,7 @@ class SenhaField extends StatelessWidget {
               ),
               obscureText: true,
               onChanged: state.didChange,
+              enabled: enabled,
             ),
             if(state.value.isNotEmpty)
             Container(

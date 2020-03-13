@@ -36,70 +36,82 @@ class _SignUpScreenState extends State<SignUpScreen> {
         title: const Text("Cadastrar"),
       ),
       body: Form(
-        child: ListView(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-          children: <Widget>[
-            const FieldTitle(
-              title: 'Apelido',
-              subtitle: 'Como aparecerar em seus anuncios.',
-            ),
-            TextFormField(
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                hintText: "Exemplo: Pedro H."
-              ),
-              validator: (text){
-                if(text.length < 6)
-                return 'Apelido muito curto';
-                return null;
-              },
-              onSaved: _signUpBloc.setName,
-            ),
-            const SizedBox(height: 26,),
-            const FieldTitle(
-              title: 'E-mail',
-              subtitle: 'Enviaremos um e-mail de confirmaçao.',
-            ),
-             TextFormField(
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-              ),
-              validator: (text){
-                if(text.length < 6 || !text.contains("@"))
-                return 'E-mail invalido';
-                return null;
-              },
-              onSaved: _signUpBloc.setEmail,
-            ),
-            const SizedBox(height: 26,),
-            const FieldTitle(
-              title: 'Senha',
-              subtitle: 'Use letras, numero e caracteres especiais.',
-            ),
-            SenhaField(
-              onSaved: _signUpBloc.setPassrword,
-            ),
-            Container(
-              margin: const EdgeInsets.symmetric(vertical: 24),
-              height: 50,
-              child: RaisedButton(
-                color: Colors.pink,
-                disabledColor: Colors.pink.withAlpha(150),
-                child: Text("Cadastra-se",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600
+        child: StreamBuilder<SignUpBlocState>(
+          stream: _signUpBloc.outState,
+          builder: (context, snapshot) {
+            return ListView(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+              children: <Widget>[
+                const FieldTitle(
+                  title: 'Apelido',
+                  subtitle: 'Como aparecerar em seus anuncios.',
                 ),
+                TextFormField(
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    hintText: "Exemplo: Pedro H."
+                  ),
+                  validator: (text){
+                    if(text.length < 6)
+                    return 'Apelido muito curto';
+                    return null;
+                  },
+                  onSaved: _signUpBloc.setName,
+                  enabled: snapshot.data.state != SignUpState.LOADING,
                 ),
-                onPressed: _signUp,
-                elevation: 0,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(25)
+                const SizedBox(height: 26,),
+                const FieldTitle(
+                  title: 'E-mail',
+                  subtitle: 'Enviaremos um e-mail de confirmaçao.',
+                ),
+                 TextFormField(
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                  ),
+                  validator: (text){
+                    if(text.length < 6 || !text.contains("@"))
+                    return 'E-mail invalido';
+                    return null;
+                  },
+                  onSaved: _signUpBloc.setEmail,
+                   enabled: snapshot.data.state != SignUpState.LOADING,
+                ),
+                const SizedBox(height: 26,),
+                const FieldTitle(
+                  title: 'Senha',
+                  subtitle: 'Use letras, numero e caracteres especiais.',
+                ),
+                SenhaField(
+                  onSaved: _signUpBloc.setPassrword,
+                   enabled: snapshot.data.state != SignUpState.LOADING,
+                ),
+                Container(
+                  margin: const EdgeInsets.symmetric(vertical: 24),
+                  height: 50,
+                  child: RaisedButton(
+                    color: Colors.pink,
+                    disabledColor: Colors.pink.withAlpha(150),
+                    child: snapshot.data.state == SignUpState.LOADING ? 
+                    CircularProgressIndicator(
+                      valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                    ) :
+                    Text("Cadastra-se",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600
+                    ),
+                    ),
+                    onPressed: snapshot.data.state != SignUpState.LOADING ? _signUp : null,
+                    elevation: 0,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(25)
+                    )
+                  ),
                 )
-              ),
-            )
-          ],
+              ],
+            );
+          }
         ),
       ),
     );
