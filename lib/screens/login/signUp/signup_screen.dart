@@ -108,7 +108,35 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       borderRadius: BorderRadius.circular(25)
                     )
                   ),
-                )
+                ),
+                Divider(
+                  color: Colors.grey,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical:12),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      const Text(
+                        'Ja tem uma conta? ',
+                        style:TextStyle(fontSize: 16),
+                      ),
+                      GestureDetector(
+                        onTap: (){
+                          Navigator.of(context).pop();
+                        },
+                        child: Text(
+                          'Entrar',
+                          style:TextStyle(
+                            decoration: TextDecoration.underline,
+                            color: Colors.blue,
+                            fontSize: 16,
+                          )
+                        ),
+                      )
+                    ]
+                  ),
+                  )
               ],
             );
           }
