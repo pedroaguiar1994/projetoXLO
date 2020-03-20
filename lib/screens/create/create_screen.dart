@@ -23,7 +23,49 @@ class _CreateScreenState extends State<CreateScreen> {
         child: ListView(
           children: <Widget>[
             ImagesField(
-              
+              onSaved: (images){
+
+              },
+              initialValue: [],
+            ),
+            TextFormField(
+              decoration: InputDecoration(
+                labelText: 'Titulo *',
+                labelStyle: TextStyle(
+                  fontWeight: FontWeight.w800,
+                  color: Colors.grey,
+                  fontSize: 18,
+                ),
+                contentPadding:  const EdgeInsets.fromLTRB(16, 10, 12, 10),
+
+              ),
+              validator: (text){
+                if(text.isEmpty) return 'Campo obrigatorio';
+                return null;
+              },
+              onSaved: (t){
+                
+              },
+            ),
+            Container(
+              height: 50,
+              child: RaisedButton(
+                color: Colors.pink,
+                child: Text(
+                  'Enviar',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w500,
+                  )
+                ),
+                onPressed: (){
+                  if(_formKey.currentState.validate()){
+                    _formKey.currentState.save();
+                  }
+                },
+                
+              )
             )
           ],
           )
