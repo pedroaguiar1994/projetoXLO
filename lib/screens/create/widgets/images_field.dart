@@ -56,7 +56,7 @@ class ImagesField extends StatelessWidget {
                               color: Colors.white,
                             ),
                             Text(
-                              '+ inseri',
+                              '+ inserir',
                               style: TextStyle(color: Colors.white)
                             )
                           ]

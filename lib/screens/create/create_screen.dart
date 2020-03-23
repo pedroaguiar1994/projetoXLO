@@ -24,13 +24,34 @@ class _CreateScreenState extends State<CreateScreen> {
           children: <Widget>[
             ImagesField(
               onSaved: (images){
-
+                
               },
               initialValue: [],
             ),
             TextFormField(
               decoration: InputDecoration(
                 labelText: 'Titulo *',
+                labelStyle: TextStyle(
+                  fontWeight: FontWeight.w800,
+                  color: Colors.grey,
+                  fontSize: 18,
+                ),
+                contentPadding:  const EdgeInsets.fromLTRB(16, 10, 12, 10),
+
+              ),
+              validator: (text){
+                if(text.trim().isEmpty) return 'Campo obrigatorio';
+                if(text.trim().length < 10)
+                return 'Descriçao muito curta';
+                return null;
+              },
+              onSaved: (t){
+
+              },
+            ),
+            TextFormField(
+              decoration: InputDecoration(
+                labelText: 'Descriçao *',
                 labelStyle: TextStyle(
                   fontWeight: FontWeight.w800,
                   color: Colors.grey,
